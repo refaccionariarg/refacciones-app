@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Refacciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f2f2f7;
+            color: #111;
+        }
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 4px 16px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+            z-index: 20;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header h1 {
+            flex: 1 1 100%;
+            text-align: center;
+            font-weight: 600;
+            font-size: 2rem;
+            margin: 0 0 1rem 0;
+        }
+        /* Contenedor para el botón hamburguesa */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            width: 100%;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+        /* Botón hamburguesa */
+        .cart-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .cart-button:hover {
+            transform: scale(1.1);
+        }
+        /* Icono hamburguesa (3 rayas) */
+        .cart-button svg {
+            width: 28px;
+            height: 28px;
+            stroke: #007aff;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        /* Menú desplegable (visible al hacer click en hamburguesa) */
+        nav.secciones.mobile {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 1.5rem;
+            background: rgba(255 255 255 / 0.95);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+            border-radius: 1rem;
+            z-index: 15;
+            min-width: 180px;
+        }
+
+        /* Mostrar menú desplegable cuando está activo */
+        nav.secciones.mobile.active {
+            display: flex;
+        }
+
+        nav.secciones.mobile a {
+            text-decoration: none;
+            color: #007aff;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            border: 1.5px solid transparent;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            user-select: none;
+            text-align: center;
+        }
+        nav.secciones.mobile a:hover,
+        nav.secciones.mobile a.active {
+            background-color: #007aff;
+            color: white;
+            border-color: #007aff;
+            box-shadow: 0 3px 8px rgba(0, 122, 255, 0.4);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+            width: 100%;
+        }
+        input[type="text"] {
+            padding: 0.7rem;
+            border-radius: 1rem;
+            border: none;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 500px;
+            font-size: 1rem;
+        }
+        button, .add-button {
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 1rem;
+            padding: 0.7rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease-in-out;
+        }
+        button:hover, .add-button:hover {
+            background: #005fce;
+        }
+        .add-button {
+            display: inline-block;
+            margin-top: 1rem;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 1rem;
+            padding: 0.7rem 0;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            margin: 0.5rem 0;
+            font-weight: 600;
+        }
+        .card p {
+            margin: 0.2rem 0;
+            font-size: 0.95rem;
+        }
+        .eliminar-form {
+            margin-top: 0.5rem;
+        }
+        .eliminar-form button {
+            background: #ff3b30;
+            border: none;
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        @media screen and (max-width: 600px) {
+            header h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            input[type="text"] {
+                width: 100%;
+            }
+            .header-controls {
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Inventario de Refacciones</h1>
+
+        <div class="header-controls">
+            <!-- Botón hamburguesa -->
+            <button class="cart-button" id="cartButton" aria-label="Mostrar secciones" aria-expanded="false" aria-controls="menuSecciones">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menú desplegable -->
+        <nav class="secciones mobile" id="menuSecciones" aria-label="Menú de secciones">
+            {% for h in hojas %}
+            <a href="{{ url_for('index', hoja=h, q=query) }}" class="{{ 'active' if hoja == h else '' }}">{{ h }}</a>
+            {% endfor %}
+            
+        </nav>
+
+        <!-- Buscador siempre debajo -->
+        <form class="search-box" method="get" action="/">
+            <input type="text" name="q" placeholder="Buscar por marca, modelo, producto..." value="{{ query }}" aria-label="Buscar refacciones" />
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div style="text-align: center; width: 100%;">
+            <a class="add-button" href="{{ url_for('agregar') }}">➕ Agregar Refacción</a>
+        </div>
+    </header>
+
+    <div class="container">
+        {% if refacciones %}
+        <div class="grid">
+            {% for r in refacciones %}
+            <div class="card">
+                <h3>{{ r['producto'] }}</h3>
+                <p><strong>Marca:</strong> {{ r['marca'] }}</p>
+                <p><strong>Modelo:</strong> {{ r['modelo'] }}</p>
+                <p><strong>SKU:</strong> {{ r['No. SKU'] }}</p>
+                <p><strong>Precio:</strong> ${{ r['precio'] }}</p>
+                <p><strong>Cantidad:</strong> {{ r['QTY'] }}</p>
+                <form class="eliminar-form" action="{{ url_for('eliminar', id=r['id']) }}" method="post">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p style="text-align: center;">No se encontraron refacciones.</p>
+        {% endif %}
+    </div>
+
+<script>
+    const cartButton = document.getElementById('cartButton');
+    const menuSecciones = document.getElementById('menuSecciones');
+
+    cartButton.addEventListener('click', () => {
+        const expanded = cartButton.getAttribute('aria-expanded') === 'true';
+        cartButton.setAttribute('aria-expanded', String(!expanded));
+        menuSecciones.classList.toggle('active');
+    });
+
+    // Opcional: cerrar menú si haces clic fuera
+    document.addEventListener('click', (e) => {
+        if (!menuSecciones.contains(e.target) && !cartButton.contains(e.target)) {
+            menuSecciones.classList.remove('active');
+            cartButton.setAttribute('aria-expanded', 'false');
+        }
+    });
+</script>
+</body>
+</html>

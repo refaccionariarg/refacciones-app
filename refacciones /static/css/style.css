@@ -1,0 +1,106 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(145deg, #f0f0f0, #dcdcdc);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.search-form input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    max-width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    border: none;
+    background: #000;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.search-form button:hover {
+    background: #333;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.ref-card {
+    background: #ffffffb0;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s ease;
+}
+
+.ref-card:hover {
+    transform: translateY(-5px);
+}
+
+.ref-card p {
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+/* Media Queries para pantallas pequeñas */
+
+@media (max-width: 600px) {
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form input[type="text"],
+    .search-form button {
+        width: 100%;
+        font-size: 1.1rem;
+    }
+    
+    .ref-card {
+        padding: 15px;
+    }
+    
+    .ref-card p {
+        font-size: 0.95rem;
+    }
+}
